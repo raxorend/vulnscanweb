@@ -1,0 +1,75 @@
+#!/usr/bin/python
+
+N = '\033[1;37m' # White
+
+import random,time,os,httplib,sys
+
+os.system('clear')
+
+def mengetik(s):
+    for c in s + '\n':
+        sys.stdout.write(c)
+        sys.stdout.flush()
+        time.sleep(random.random() * 0.1)
+    
+        
+__banner__="""
+__     __     _       ____
+\ \   / /   _| |_ __ / ___|  ___ __ _ _ __   ___ _ __
+ \ \ / / | | | | '_ \\___ \ / __/ _` | '_ \ / _ \ '__|
+  \ V /| |_| | | | | |___) | (_| (_| | | | |  __/ |
+   \_/  \__,_|_|_| |_|____/ \___\__,_|_| |_|\___|_|
+######################################
+Tool : Vuln Scanner v1.0"
+Author : Mr. Rax0_R3nd And Kawan Kawan
+Team : Hidden Network       
+######################################
+ """ 
+Hn = raw_input('Apakah Kalian Ingin Menjalankan Tool Ini [Y]')
+if Hn == 'n':
+    mengetik('Exiting....')
+    os.system("exit")
+    pass
+if Hn == 'y':
+    
+    os.system('pip2 install httplib')
+    hn = raw_input('Apakah Anda Yakin Untuk Melanjutkan ?? [Y/n] ')
+    if hn == 'n':
+        pass
+    if hn == 'y':
+        print
+def clearing():
+    if os.name == 'nt':
+        os.system('clear')
+    else:
+        os.system('clear')
+        
+print __banner__
+mengetik("Enter Your Target Website...!")
+website = raw_input('\n'+N+'Enter Your Website target : ')
+shells = ['/index.php?option=com_fabrik&amp;c=import&amp;view=import&amp;filetype=csv&amp;tableid=1echercher ','/index.php?option=com_fabrik&c=import&view=import&filetype=csv&table=1','/fckeditor/editor/filemanager/browser/default/browser.html?Connector=connectors/php/connector.php','/wp-content/plugins/disqus-comment-system/disqus.php','/d0mains.php','/wp-content/plugins/akismet/akismet.php','/madspotshell.php','/info.php','/egyshell.php','/Sym.php','/c22.php','/c100.php','/wp-content/plugins/akismet/admin.php','/configuration.php','/g.php','/wp-content/plugins/google-sitemap-generator/sitemap-core.php','/wp-content/plugins/akismet/widget.php','/xx.pl','/ls.php','/Cpanel.php','/k.php','/zone-h.php','/tmp/user.php','/tmp/Sym.php','/cp.php','/tmp/madspotshell.php','/tmp/root.php','/tmp/whmcs.php','/tmp/index.php','/tmp/2.php','/tmp/dz.php','/tmp/cpn.php','/tmp/changeall.php','/tmp/Cgishell.pl','/tmp/sql.php','/0day.php','/tmp/admin.php','/cliente/downloads/h4xor.php','/whmcs/downloads/dz.php','/L3b.php','/d.php','/tmp/d.php','/tmp/L3b.php','/wp-content/plugins/akismet/admin.php','/templates/rhuk_milkyway/index.php','/templates/beez/index.php','/sado.php','/admin1.php','/upload.php','/up.php','/vb.zip','/vb.rar','/admin2.asp','/uploads.php','/sa.php','/sysadmins/','/admin1/','/sniper.php','/administration/Sym.php','images/Sym.php','/r57.php','/wp-content/plugins/disqus-comment-system/disqus.php','gzaa_spysl','sql-new.php','/shell.php','/sa.php','/admin.php','/sa2.php','/2.php','/gaza.php','/up.php','/upload.php','/uploads.php','/templates/beez/index.php','shell.php','/amad.php','/t00.php','/dz.php','/site.rar','/Black.php','/site.tar.gz','/home.zip','/home.rar','/home.tar','/home.tar.gz','/forum.zip','/forum.rar','/forum.tar','/forum.tar.gz','/test.txt','/ftp.txt','/user.txt','/site.txt','/error_log','/error','/cpanel','/awstats','/site.sql','/vb.sql','/forum.sql','r00t-s3c.php','c.php','/backup.sql','/back.sql','/data.sql','wp.rar/','wp-content/plugins/disqus-comment-system/disqus.php','asp.aspx','/templates/beez/index.php','/tmp/vaga.php']
+foundshells = []
+
+for shell in shells:
+    site = website.replace('http://','')
+    host = site + shell
+    conn = httplib.HTTPConnection(site)
+    conn.connect()
+    request = conn.request('GET',shell)
+    response = conn.getresponse()
+    if response.status == 200:
+        print '\n\t[$] '+N+'Yes vulnerable :* =>'+N+' %s \n' %host
+        foundshells.append(host)
+        print ""+N+""
+    else:
+        print '[*] No :( '+N+' => '+N+' %s  '%host
+fpth = os.getcwd()
+fpth2 = fpth + '/found.txt'
+fob = open(fpth2,'w')
+fob.close()
+fob = open(fpth2,'a')
+fob.writelines(foundshells)
+print ''+N+'Found shells saved on found.txt'
+raw_input('\n Press enter to exit ... ')
+exit()
+     
